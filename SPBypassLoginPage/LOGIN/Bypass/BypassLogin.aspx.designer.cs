@@ -11,5 +11,41 @@ namespace CustomRedirect {
     
     
     public partial class BypassLogin {
+        
+        /// <summary>
+        /// ClaimsLogonPageTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.SharePoint.WebControls.EncodedLiteral ClaimsLogonPageTitle;
+        
+        /// <summary>
+        /// ClaimsLogonPageTitleInTitleArea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.SharePoint.WebControls.EncodedLiteral ClaimsLogonPageTitleInTitleArea;
+        
+        /// <summary>
+        /// ClaimsLogonPageMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.SharePoint.WebControls.EncodedLiteral ClaimsLogonPageMessage;
+        
+        /// <summary>
+        /// ClaimsLogonSelector control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ClaimsLogonSelector;
     }
 }
