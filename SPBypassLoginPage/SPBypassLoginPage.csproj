@@ -48,6 +48,7 @@
     <Reference Include="Microsoft.SharePoint.IdentityModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.SharePoint.IdentityModel\v4.0_15.0.0.0__71e9bce111e9429c\Microsoft.SharePoint.IdentityModel.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,13 +57,16 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.SharePoint" />
-    <Reference Include="Microsoft.SharePoint.Client.ServerRuntime" />
+    <Reference Include="Microsoft.SharePoint">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.ServerRuntime">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LOGIN\Bypass\BypassLogin.aspx.cs">
       <DependentUpon>BypassLogin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LOGIN\Bypass\BypassLogin.aspx.designer.cs">
       <DependentUpon>BypassLogin.aspx.cs</DependentUpon>
@@ -71,9 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />
-    <None Include="Layouts\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{c4c9ef54-4ecd-4ace-9b07-39a654958868}</SharePointProjectItemId>
-    </None>
     <None Include="LOGIN\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{806235a0-2949-4da4-b5a8-f5648163a152}</SharePointProjectItemId>
     </None>

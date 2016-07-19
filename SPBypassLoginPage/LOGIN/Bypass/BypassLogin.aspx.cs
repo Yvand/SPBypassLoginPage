@@ -14,11 +14,11 @@ namespace CustomRedirect
         public const string AuthModeWindows = "Windows";
         public const string AuthModeForms = "Forms";
         public const string AuthModeTrusted = "Trusted";
+        public const string DisplayAllAuthNModes = "prompt";
 
         public const string WSFedHomeRealm = "whr";
         public const string WSFedWAuth = "wauth";
 
-        public const string QueryStringDisplayAuthNModes = "prompt";
 
         public static string GetSubString(string value, char separator, int index)
         {
@@ -51,6 +51,18 @@ namespace CustomRedirect
             }
         }
 
+        /// <summary>
+        /// Property UnsecuredLayoutsPageBase.IisSettings was introduced in April 2014 CU v15.0.4605.1004 (1st CU post SP1).
+        /// Because of this, it must be overridden here (without override keyword) to handle plain SP1 farms (15.0.4569.1000 and 15.0.4571.1502).
+        /// </summary>
+        public SPIisSettings IisSettings
+        {
+            get
+            {
+                return SPContext.Current.Site.WebApplication.GetIisSettingsWithFallback(SPContext.Current.Site.Zone);
+            }
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -62,8 +74,8 @@ namespace CustomRedirect
                 SPHttpUtility.NoEncode((string)HttpContext.GetGlobalResourceObject("wss", "login_pagetitle", System.Threading.Thread.CurrentThread.CurrentUICulture));
             ClaimsLogonPageMessage.Text = SPHttpUtility.NoEncode(SPResource.GetString(Strings.SelectAuthenticationMethod));
 
-            if (ClientQueryString.Contains(Utilities.QueryStringDisplayAuthNModes) ||
-                String.Equals(LoginMode, Utilities.QueryStringDisplayAuthNModes, StringComparison.InvariantCultureIgnoreCase))
+            if (ClientQueryString.Contains(Utilities.DisplayAllAuthNModes) ||
+                String.Equals(LoginMode, Utilities.DisplayAllAuthNModes, StringComparison.InvariantCultureIgnoreCase))
                 LetUserChoose();
             else
                 HandleRedirect(LoginMode);
