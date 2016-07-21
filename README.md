@@ -1,14 +1,15 @@
 # SPBypassLoginPage
-This farm solution works with SharePoint 2013. It adds a page that allows SharePoint administrators to bypass provider selection page when multiple authentication modes are enabled in a zone of a web application.
+This farm solution works with SharePoint 2013 and SharePoint 2016. It adds a page that allows SharePoint administrators to bypass provider selection page when multiple authentication modes are enabled in a zone of a web application.
 
 By default it redirects to the 1st trusted authentication mode it finds in the current zone (most common use-case), but administrators can customize behavior through custom farm property "CustomBypassLogin" (see below for more details).
 
 ## Installation
+Below is for SharePoint 2013. For SharePoint 2016, replace SP15 by SP16:
 - Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
-- Install solution:
-`Add-SPSolution "C:\Data\Dev\SPBypassLoginPage.wsp"`
+- Install solution (assuming it is for SharePoint 2013):
+`Add-SPSolution "C:\Data\Dev\SPBypassLoginPage SP15.wsp"`
 - Deploy it: 
-`Install-SPSolution -Identity "SPBypassLoginPage.wsp" -GACDeployment`
+`Install-SPSolution -Identity "SPBypassLoginPage SP15.wsp" -GACDeployment`
 - Go to central administration site > Select your web application > "Authentication Providers" > Select the zone:
 In "Sign In Page URL" section: check "Custom Sign In Page" > type URL below and validate:<br>
 /_login/Bypass/BypassLogin.aspx
@@ -35,13 +36,9 @@ $farm.Update()
 ```
 
 ## How to Update
+Below is for SharePoint 2013. For SharePoint 2016, replace SP15 by SP16:
 - Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
 - Update solution:
-
 ```powershell
-Update-SPSolution -GACDeployment -Identity "SPBypassLoginPage.wsp" -LiteralPath "C:\Data\Dev\SPBypassLoginPage.wsp"
+Update-SPSolution -GACDeployment -Identity "SPBypassLoginPage SP15.wsp" -LiteralPath "C:\Data\Dev\SPBypassLoginPage SP15.wsp"
 ```
-
-## Limitations
-Currently it does not work with SharePoint 2016 because page references Microsoft.SharePoint.IdentityModel strongly typed to v15, which generates an assembly load error.
-<br>I'm looking for a good solution to fix this.

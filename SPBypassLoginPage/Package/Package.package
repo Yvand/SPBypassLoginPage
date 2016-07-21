@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="034dcf85-08f3-4245-a809-067092b1db69" solutionId="034dcf85-08f3-4245-a809-067092b1db69" resetWebServer="false" title="SPBypassLoginPage" sharePointProductVersion="15.0" name="SPBypassLoginPage" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="034dcf85-08f3-4245-a809-067092b1db69" solutionId="034dcf85-08f3-4245-a809-067092b1db69" resetWebServer="false" title="SPBypassLoginPage" sharePointProductVersion="15.0" name="SPBypassLoginPage $(Configuration)" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
   <projectItems>
     <projectItemReference itemId="806235a0-2949-4da4-b5a8-f5648163a152" />
   </projectItems>
