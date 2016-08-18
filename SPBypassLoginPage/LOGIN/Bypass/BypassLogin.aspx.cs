@@ -50,7 +50,17 @@ namespace CustomRedirect
             }
         }
 
-        #if SP15
+        /// <summary>
+        /// Override OnPreInit to prevent call to base.OnPreInit(e) to avoid redirection for mobile devices
+        /// which results in an endless loop
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnPreInit(EventArgs e)
+        {
+            //base.OnPreInit(e);
+        }
+
+#if SP15
         /// <summary>
         /// Property UnsecuredLayoutsPageBase.IisSettings was introduced in April 2014 CU v15.0.4605.1004 (1st CU post SP1).
         /// Because of this, it must be overridden here (without override keyword) to handle plain SP1 farms (15.0.4569.1000 and 15.0.4571.1502).
@@ -62,7 +72,7 @@ namespace CustomRedirect
                 return SPContext.Current.Site.WebApplication.GetIisSettingsWithFallback(SPContext.Current.Site.Zone);
             }
         }
-        #endif
+#endif
 
         protected override void OnLoad(EventArgs e)
         {
@@ -80,14 +90,6 @@ namespace CustomRedirect
                 LetUserChoose();
             else
                 HandleRedirect(LoginMode);
-
-            int test = 0;
-
-#if SP16
-            test = 16;
-#else
-            test = 15;
-#endif
         }
 
         private void HandleRedirect(string value)
