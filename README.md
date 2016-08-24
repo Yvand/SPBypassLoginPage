@@ -1,8 +1,6 @@
 # SPBypassLoginPage
 This farm solution works with SharePoint 2013 and SharePoint 2016. It adds a page that allows SharePoint administrators to bypass provider selection page when multiple authentication modes are enabled in a zone of a web application.
 
-By default it redirects to the 1st trusted authentication mode it finds in the current zone (most common use-case), but administrators can customize behavior through custom farm property "CustomBypassLogin" (see below for more details).
-
 ## Installation
 There is a different package for each SharePoint version: For SharePoint 2013 use "SPBypassLoginPage SP15.wsp" and for SharePoint 2016 use "SPBypassLoginPage SP16.wsp".
 - Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
@@ -16,7 +14,7 @@ In "Sign In Page URL" section: check "Custom Sign In Page", type URL below and v
 /_login/Bypass/BypassLogin.aspx
 
 ## Configuration
-Custom farm property "CustomBypassLogin" can have following values:
+By default it redirects to the 1st trusted authentication mode it finds in the current zone (most common use-case), but administrators can customize behavior through custom farm property "CustomBypassLogin":
 - "prompt": displays the same experience to users as out of the box (they must choose the authentication mode to use)
 - "Windows": redirects to windows authentication mode
 - "Forms": redirects to FBA authentication mode
