@@ -4,17 +4,18 @@ This farm solution works with SharePoint 2013 and SharePoint 2016. It adds a pag
 By default it redirects to the 1st trusted authentication mode it finds in the current zone (most common use-case), but administrators can customize behavior through custom farm property "CustomBypassLogin" (see below for more details).
 
 ## Installation
-Below is for SharePoint 2013. For SharePoint 2016, replace SP15 by SP16:
+There is a different package for each SharePoint version: For SharePoint 2013 use "SPBypassLoginPage SP15.wsp" and for SharePoint 2016 use "SPBypassLoginPage SP16.wsp".
 - Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
-- Install solution (assuming it is for SharePoint 2013):
-`Add-SPSolution "C:\Data\Dev\SPBypassLoginPage SP15.wsp"`
-- Deploy it: 
-`Install-SPSolution -Identity "SPBypassLoginPage SP15.wsp" -GACDeployment`
-- Go to central administration site > Select your web application > "Authentication Providers" > Select the zone:
-In "Sign In Page URL" section: check "Custom Sign In Page" > type URL below and validate:<br>
+- Install and deploy solution:
+```powershell
+Add-SPSolution "C:\Data\Dev\SPBypassLoginPage SP15.wsp"
+Install-SPSolution -Identity "SPBypassLoginPage SP15.wsp" -GACDeployment
+```
+- Go to central administration > select your web application > "Authentication Providers" > Select the zone:<br>
+In "Sign In Page URL" section: check "Custom Sign In Page", type URL below and validate:<br>
 /_login/Bypass/BypassLogin.aspx
 
-## How to configure
+## Configuration
 Custom farm property "CustomBypassLogin" can have following values:
 - "prompt": displays the same experience to users as out of the box (they must choose the authentication mode to use)
 - "Windows": redirects to windows authentication mode
@@ -35,10 +36,21 @@ $farm.Properties.Remove("CustomBypassLogin")
 $farm.Update()
 ```
 
-## How to Update
-Below is for SharePoint 2013. For SharePoint 2016, replace SP15 by SP16:
+## How to update solution
+Example below is for SharePoint 2013. For SharePoint 2016, replace SP15 by SP16:
 - Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
 - Update solution:
 ```powershell
 Update-SPSolution -GACDeployment -Identity "SPBypassLoginPage SP15.wsp" -LiteralPath "C:\Data\Dev\SPBypassLoginPage SP15.wsp"
+```
+
+## How to remove solution
+- Revert sign-in page to the default one in web application settings
+- Remove solution
+```powershell
+$farm = Get-SPFarm
+$farm.Properties.Remove("CustomBypassLogin")
+$farm.Update()
+Uninstall-SPSolution -Identity "LDAPCP.wsp"
+Remove-SPSolution -Identity "LDAPCP.wsp"
 ```
