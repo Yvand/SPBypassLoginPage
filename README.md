@@ -37,7 +37,6 @@ $farm.Update()
 ```
 
 ## How to update solution
-Example below is for SharePoint 2013. For SharePoint 2016, replace SP15 by SP16:
 - Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
 - Update solution:
 ```powershell
@@ -51,6 +50,6 @@ Update-SPSolution -GACDeployment -Identity "SPBypassLoginPage SP15.wsp" -Literal
 $farm = Get-SPFarm
 $farm.Properties.Remove("CustomBypassLogin")
 $farm.Update()
-Uninstall-SPSolution -Identity "LDAPCP.wsp"
-Remove-SPSolution -Identity "LDAPCP.wsp"
+Uninstall-SPSolution -Identity "SPBypassLoginPage SP15.wsp"
+Remove-SPSolution -Identity "SPBypassLoginPage SP15.wsp"
 ```
