@@ -92,6 +92,10 @@ namespace CustomRedirect
                 HandleRedirect(LoginMode);
         }
 
+        /// <summary>
+        /// Redirect user to the authentication mode configured by the administrator or selected by the user
+        /// </summary>
+        /// <param name="value">authentication mode to use</param>
         private void HandleRedirect(string value)
         {
             Type typeSelected = null;
@@ -106,8 +110,15 @@ namespace CustomRedirect
                 if (provider.GetType() != typeof(SPTrustedAuthenticationProvider))
                     redirectUrl += "?";
                 else if (String.Equals(provider.DisplayName, trustedProviderName, StringComparison.InvariantCultureIgnoreCase))
-                    continue;
-                break;
+                    break;
+            }
+
+            // admin sets an authentication mode that is not enabled on the zone, redirectUrl will be empty
+            // In this scenario, fallback to let user choose which authentication mod he wants to use
+            if (String.IsNullOrEmpty(redirectUrl))
+            {
+                LetUserChoose();
+                return;
             }
 
             // Get all original query string parameters.
