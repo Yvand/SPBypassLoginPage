@@ -2,16 +2,17 @@
 This farm solution works with SharePoint 2013 and SharePoint 2016. It adds a page that allows SharePoint administrators to bypass provider selection page when multiple authentication modes are enabled in a zone of a web application.
 
 ## Installation
-There is a different package for each SharePoint version: For SharePoint 2013 use "SPBypassLoginPage SP15.wsp" and for SharePoint 2016 use "SPBypassLoginPage SP16.wsp".
+The package depends on SharePoint version: For SharePoint 2013 use "SPBypassLoginPage SP15.wsp" and for SharePoint 2016 use "SPBypassLoginPage SP16.wsp".
 - Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
 - Install and deploy farm solution:
 ```powershell
 Add-SPSolution "C:\Data\Dev\SPBypassLoginPage SP15.wsp"
 Install-SPSolution -Identity "SPBypassLoginPage SP15.wsp" -GACDeployment
 ```
-- Go to central administration > select your web application > "Authentication Providers" > Select the zone:<br>
-In "Sign In Page URL" section: check "Custom Sign In Page", type URL below and validate:<br>
-/_login/Bypass/BypassLogin.aspx
+- Enable the custom login page, either through central administration or with PowerShell:
+```powershell
+Set-SPWebApplication "http://sp/" -Zone "Default" -SignInRedirectUrl "/_login/Bypass/BypassLogin.aspx"
+```
 
 ## Configuration
 By default it redirects to the 1st trusted authentication mode it finds in the current zone (most common use-case), but administrators can customize behavior through custom farm property "CustomBypassLogin":
@@ -43,7 +44,10 @@ Update-SPSolution -GACDeployment -Identity "SPBypassLoginPage SP15.wsp" -Literal
 ```
 
 ## How to remove solution
-- Revert sign-in page to the default one in web application settings
+- Revert to default provider selection page:
+```powershell
+Set-SPWebApplication "http://sp/" -Zone "Default" -SignInRedirectUrl ""
+```
 - Remove solution:
 ```powershell
 $farm = Get-SPFarm
