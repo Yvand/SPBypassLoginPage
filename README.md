@@ -3,7 +3,7 @@ This farm solution works with SharePoint 2013 and SharePoint 2016. It adds a pag
 
 ## Installation
 The package depends on SharePoint version: For SharePoint 2013 use "SPBypassLoginPage SP15.wsp" and for SharePoint 2016 use "SPBypassLoginPage SP16.wsp".
-- Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
+- Download the [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
 - Install and deploy farm solution:
 ```powershell
 Add-SPSolution "C:\Data\Dev\SPBypassLoginPage SP15.wsp"
@@ -19,14 +19,14 @@ By default it redirects to the 1st trusted authentication mode it finds in the c
 - "prompt": displays the same experience as out of the box: users must choose the authentication mode to use
 - "Windows": redirects to windows authentication mode
 - "Forms": redirects to FBA authentication mode
-- "Trusted:TrustName": redirects to the [trusted provider](https://technet.microsoft.com/en-us/library/ff607829.aspx) specified by "TrustName".
+- "Trusted:SPTrustedIdentityTokenIssuerName": redirects to the [SPTrustedLoginProvider](https://technet.microsoft.com/en-us/library/ff607829.aspx) specified by "SPTrustedIdentityTokenIssuerName".
 - "Trusted": redirects to any [trusted provider](https://technet.microsoft.com/en-us/library/ff607829.aspx) enabled on the zone.
 
 This property can be managed easily with PowerShell:
 ```powershell
 $farm = Get-SPFarm
 # To create property:
-$farm.Properties.Add("CustomBypassLogin", "Trusted:TrustName")
+$farm.Properties.Add("CustomBypassLogin", "Trusted:SPTrustedIdentityTokenIssuerName")
 $farm.Update()
 # To update it:
 $farm.Properties["CustomBypassLogin"] = "prompt"
