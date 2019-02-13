@@ -60,7 +60,7 @@ namespace CustomRedirect
             //base.OnPreInit(e);
         }
 
-#if SP15
+#if SP2013
         /// <summary>
         /// Property UnsecuredLayoutsPageBase.IisSettings was introduced in April 2014 CU v15.0.4605.1004 (1st CU post SP1).
         /// Because of this, it must be overridden here (without override keyword) to handle plain SP1 farms (15.0.4569.1000 and 15.0.4571.1502).
