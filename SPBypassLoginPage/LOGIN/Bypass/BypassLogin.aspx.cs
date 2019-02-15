@@ -6,7 +6,7 @@ using System;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace CustomRedirect
+namespace Yvand.SPBypassLoginPage
 {
     public class Utilities
     {

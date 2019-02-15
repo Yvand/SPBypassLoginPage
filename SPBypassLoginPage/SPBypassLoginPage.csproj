@@ -7,8 +7,8 @@
     <ProjectGuid>{EF493EBD-6855-4206-BE5B-DB63422BCFE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CustomRedirect</RootNamespace>
-    <AssemblyName>CustomRedirect</AssemblyName>
+    <RootNamespace>SPBypassLoginPage</RootNamespace>
+    <AssemblyName>Yvand.SPBypassLoginPage</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetOfficeVersion>15.0</TargetOfficeVersion>
     <FileAlignment>512</FileAlignment>
