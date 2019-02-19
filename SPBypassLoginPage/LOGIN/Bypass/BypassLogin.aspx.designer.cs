@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CustomRedirect {
+namespace Yvand.SPBypassLoginPage {
     
     
     public partial class BypassLogin {
