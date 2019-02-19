@@ -5,9 +5,9 @@ SharePoint administrators can configure it to set what authentication mode shoul
 
 ![Latest release date](https://img.shields.io/github/release-date/Yvand/SPBypassLoginPage.svg?style=flat)
 ![Latest release downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/latest/total.svg?style=flat)
-![Total downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/total.svg?style=flat)
-![Issues opened](https://img.shields.io/github/issues/Yvand/SPBypassLoginPage.svg?style=flat)  
-[![Build status](https://dev.azure.com/Yvand/SPBypassLoginPage/_apis/build/status/SPBypassLoginPage-CI)](https://dev.azure.com/Yvand/SPBypassLoginPage/_build/latest?definitionId=4)
+![Total downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/total.svg?style=flat)  
+![Issues opened](https://img.shields.io/github/issues/Yvand/SPBypassLoginPage.svg?style=flat)
+[![Build status](https://dev.azure.com/Yvand/SPBypassLoginPage/_apis/build/status/SPBypassLoginPage-CI)](https://dev.azure.com/Yvand/SPBypassLoginPage/_build/latest?definitionId=4)  
 ![Code size](https://img.shields.io/github/languages/code-size/Yvand/SPBypassLoginPage.svg?style=flat)
 ![License](https://img.shields.io/github/license/Yvand/SPBypassLoginPage.svg?style=flat)
 
