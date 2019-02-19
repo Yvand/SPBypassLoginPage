@@ -1,28 +1,46 @@
-# SPBypassLoginPage
-This farm solution works with SharePoint 2013 and SharePoint 2016. It adds a page that allows SharePoint administrators to bypass provider selection page when multiple authentication modes are enabled in a zone of a web application.
+# SPBypassLoginPage for SharePoint 2019 / 2016 / 2013
+
+This farm solution adds a page that replaces standard provider selection page when multiple authentication modes are enabled in a zone of a web application.  
+SharePoint administrators can configure it to set what authentication mode should be used.
+
+![Latest release date](https://img.shields.io/github/release-date/Yvand/SPBypassLoginPage.svg?style=flat)
+![Latest release downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/latest/total.svg?style=flat)
+![Total downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/total.svg?style=flat)  
+![Issues opened](https://img.shields.io/github/issues/Yvand/SPBypassLoginPage.svg?style=flat)
+[![Build status](https://dev.azure.com/Yvand/SPBypassLoginPage/_apis/build/status/SPBypassLoginPage-CI)](https://dev.azure.com/Yvand/SPBypassLoginPage/_build/latest?definitionId=4)  
+![Code size](https://img.shields.io/github/languages/code-size/Yvand/SPBypassLoginPage.svg?style=flat)
+![License](https://img.shields.io/github/license/Yvand/SPBypassLoginPage.svg?style=flat)
 
 ## Installation
-The package depends on SharePoint version: For SharePoint 2013 use "SPBypassLoginPage SP15.wsp" and for SharePoint 2016 use "SPBypassLoginPage SP16.wsp".
-- Download the [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
-- Install and deploy farm solution:
+
+The package to install depends on SharePoint version, but besides the name of the package, the steps are the same for all SharePoint versions:
+
+* Download the [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
+* Install and deploy farm solution:
+
 ```powershell
-Add-SPSolution "C:\Data\Dev\SPBypassLoginPage SP15.wsp"
-Install-SPSolution -Identity "SPBypassLoginPage SP15.wsp" -GACDeployment
+Add-SPSolution "C:\Data\Dev\SPBypassLoginPage SP2019.wsp"
+Install-SPSolution -Identity "SPBypassLoginPage SP2019.wsp" -GACDeployment
 ```
-- Enable the custom login page, either through central administration or with PowerShell:
+
+* Enable the custom login page, either through central administration or with PowerShell:
+
 ```powershell
-Set-SPWebApplication "http://sp/" -Zone "Default" -SignInRedirectUrl "/_login/Bypass/BypassLogin.aspx"
+Set-SPWebApplication "http://spsites/" -Zone "Default" -SignInRedirectUrl "/_login/Bypass/BypassLogin.aspx"
 ```
 
 ## Configuration
-By default it redirects to the 1st trusted authentication mode it finds in the current zone (most common use-case), but administrators can customize behavior through custom farm property "CustomBypassLogin":
-- "prompt": displays the same experience as out of the box: users must choose the authentication mode to use
-- "Windows": redirects to windows authentication mode
-- "Forms": redirects to FBA authentication mode
-- "Trusted:SPTrustedIdentityTokenIssuerName": redirects to the [SPTrustedLoginProvider](https://technet.microsoft.com/en-us/library/ff607829.aspx) specified by "SPTrustedIdentityTokenIssuerName".
-- "Trusted": redirects to any [trusted provider](https://technet.microsoft.com/en-us/library/ff607829.aspx) enabled on the zone.
 
-This property can be managed easily with PowerShell:
+By default it redirects to the 1st trusted authentication mode it finds in the current zone (most common use-case), but administrators can customize behavior through custom farm property "CustomBypassLogin":
+
+* "prompt": displays the same experience as out of the box: users must choose the authentication mode to use
+* "Windows": redirects to windows authentication mode
+* "Forms": redirects to FBA authentication mode
+* "Trusted:SPTrustedIdentityTokenIssuerName": redirects to the [SPTrustedLoginProvider](https://technet.microsoft.com/en-us/library/ff607829.aspx) specified by "SPTrustedIdentityTokenIssuerName".
+* "Trusted": redirects to any [trusted provider](https://technet.microsoft.com/en-us/library/ff607829.aspx) enabled on the zone.
+
+This property can be set with PowerShell:
+
 ```powershell
 $farm = Get-SPFarm
 # To create property:
@@ -36,23 +54,24 @@ $farm.Properties.Remove("CustomBypassLogin")
 $farm.Update()
 ```
 
-## How to update solution
-- Download [latest release](https://github.com/Yvand/SPBypassLoginPage/releases/latest)
-- Update solution:
+## Remove SPBypassLoginPage from the farm
+
+* Revert to the default provider selection page:
+
 ```powershell
-Update-SPSolution -GACDeployment -Identity "SPBypassLoginPage SP15.wsp" -LiteralPath "C:\Data\Dev\SPBypassLoginPage SP15.wsp"
+Set-SPWebApplication "http://spsites/" -Zone "Default" -SignInRedirectUrl ""
 ```
 
-## How to remove solution
-- Revert to default provider selection page:
-```powershell
-Set-SPWebApplication "http://sp/" -Zone "Default" -SignInRedirectUrl ""
-```
-- Remove solution:
+* Remove
+
 ```powershell
 $farm = Get-SPFarm
 $farm.Properties.Remove("CustomBypassLogin")
 $farm.Update()
-Uninstall-SPSolution -Identity "SPBypassLoginPage SP15.wsp"
-Remove-SPSolution -Identity "SPBypassLoginPage SP15.wsp"
+Uninstall-SPSolution -Identity "SPBypassLoginPage SP2019.wsp"
+Remove-SPSolution -Identity "SPBypassLoginPage SP2019.wsp"
 ```
+
+## Update SPBypassLoginPage
+
+Due to breaking changes in the latest version, cmdlet Update-SPSolution won't work. Instead, you need to remove and reinstall the solution.

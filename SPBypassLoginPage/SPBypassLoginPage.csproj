@@ -7,8 +7,8 @@
     <ProjectGuid>{EF493EBD-6855-4206-BE5B-DB63422BCFE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CustomRedirect</RootNamespace>
-    <AssemblyName>CustomRedirect</AssemblyName>
+    <RootNamespace>SPBypassLoginPage</RootNamespace>
+    <AssemblyName>Yvand.SPBypassLoginPage</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetOfficeVersion>15.0</TargetOfficeVersion>
     <FileAlignment>512</FileAlignment>
@@ -33,11 +33,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>SPBypassLoginPage.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP16|AnyCPU' ">
-    <OutputPath>bin\SP16\</OutputPath>
-    <DefineConstants>TRACE;SP16</DefineConstants>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2019|AnyCPU' ">
+    <OutputPath>bin\SP2019\</OutputPath>
+    <DefineConstants>TRACE;SP2019</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,9 +45,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP15|AnyCPU' ">
-    <OutputPath>bin\SP15\</OutputPath>
-    <DefineConstants>TRACE;SP15</DefineConstants>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2016|AnyCPU' ">
+    <OutputPath>bin\SP2016\</OutputPath>
+    <DefineConstants>TRACE;SP2016</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,10 +55,21 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <!-- Custom property to load good SharePoint assemblies -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2013|AnyCPU' ">
+    <OutputPath>bin\SP2013\</OutputPath>
+    <DefineConstants>TRACE;SP2013</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <!-- Custom property to load SharePoint assemblies corresponding to current build -->
   <PropertyGroup>
-    <SPVersion>SP15</SPVersion>
-    <SPVersion Condition="'$(Configuration)'=='SP16'">SP16</SPVersion>
+    <SPVersion>SP2013</SPVersion>
+    <SPVersion Condition="'$(Configuration)'=='SP2016'">SP2016</SPVersion>
+    <SPVersion Condition="'$(Configuration)'=='SP2019'">SP2019</SPVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SharePoint.IdentityModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -89,7 +100,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="key.snk" />
+    <None Include="SPBypassLoginPage.snk" />
     <None Include="LOGIN\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{806235a0-2949-4da4-b5a8-f5648163a152}</SharePointProjectItemId>
     </None>
@@ -102,8 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
-    <Folder Include="SP15\" />
-    <Folder Include="SP16\" />
+    <Folder Include="SP2013\" />
+    <Folder Include="SP2016\" />
+    <Folder Include="SP2019\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LOGIN\Bypass\BypassLogin.aspx" />

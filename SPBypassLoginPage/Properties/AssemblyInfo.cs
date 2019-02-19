@@ -11,7 +11,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Yvan Duhamel")]
 [assembly: AssemblyProduct("SPBypassLoginPage")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("Yvan Duhamel")]
 [assembly: AssemblyCulture("")]
 
@@ -34,5 +34,5 @@ using System.Security;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("2.4")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 
