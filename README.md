@@ -4,8 +4,8 @@ This farm solution adds a page that replaces standard provider selection page wh
 SharePoint administrators can configure it to set what authentication mode should be used.
 
 [![Build status](https://dev.azure.com/Yvand/SPBypassLoginPage/_apis/build/status/SPBypassLoginPage-CI)](https://dev.azure.com/Yvand/SPBypassLoginPage/_build/latest?definitionId=4)
-[![Total downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/total.svg?style=flat)
-[![Downloads of latest release](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/latest/total.svg?style=flat)
+[Total downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/total.svg?style=flat)
+[Downloads of latest release](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/latest/total.svg?style=flat
 
 ## Installation
 
