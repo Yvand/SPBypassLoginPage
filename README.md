@@ -3,9 +3,13 @@
 This farm solution adds a page that replaces standard provider selection page when multiple authentication modes are enabled in a zone of a web application.  
 SharePoint administrators can configure it to set what authentication mode should be used.
 
-[![Build status](https://dev.azure.com/Yvand/SPBypassLoginPage/_apis/build/status/SPBypassLoginPage-CI)](https://dev.azure.com/Yvand/SPBypassLoginPage/_build/latest?definitionId=4)
+![Latest release date](https://img.shields.io/github/release-date/Yvand/SPBypassLoginPage.svg?style=flat)
+![Latest release downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/latest/total.svg?style=flat)
 ![Total downloads](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/total.svg?style=flat)
-![Downloads of latest release](https://img.shields.io/github/downloads/Yvand/SPBypassLoginPage/latest/total.svg?style=flat)
+![Issues opened](https://img.shields.io/github/issues/Yvand/SPBypassLoginPage.svg?style=flat)  
+[![Build status](https://dev.azure.com/Yvand/SPBypassLoginPage/_apis/build/status/SPBypassLoginPage-CI)](https://dev.azure.com/Yvand/SPBypassLoginPage/_build/latest?definitionId=4)
+![Code size](https://img.shields.io/github/languages/code-size/Yvand/SPBypassLoginPage.svg?style=flat)
+![License](https://img.shields.io/github/license/Yvand/SPBypassLoginPage.svg?style=flat)
 
 ## Installation
 
@@ -50,7 +54,7 @@ $farm.Properties.Remove("CustomBypassLogin")
 $farm.Update()
 ```
 
-## How to remove the package from the farm
+## Remove SPBypassLoginPage from the farm
 
 * Revert to the default provider selection page:
 
@@ -68,6 +72,6 @@ Uninstall-SPSolution -Identity "SPBypassLoginPage SP2019.wsp"
 Remove-SPSolution -Identity "SPBypassLoginPage SP2019.wsp"
 ```
 
-* Remove
+## Update SPBypassLoginPage
 
 Due to breaking changes in the latest version, cmdlet Update-SPSolution won't work. Instead, you need to remove and reinstall the solution.
