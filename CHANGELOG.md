@@ -1,6 +1,6 @@
 # Change log for SPBypassLoginPage
 
-## Unreleased
+## SPBypassLoginPage 2019.02.19.10
 
 * Use Azure DevOps to build and release SPBypassLoginPage
 * Add version for SharePoint 2019 - SPBypassLoginPage SP2019.wsp
