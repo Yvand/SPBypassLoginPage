@@ -32,16 +32,22 @@ namespace Yvand.SPBypassLoginPage
     public partial class BypassLogin : IdentityModelSignInPageBase
     {
         const string CustomLoginProperty = "CustomBypassLogin";
-        const string WindowsAuthIPsConfig = "WindowsAuthIPs";
+        const string WindowsAuthIPsConfig = "CustomBypassLogin_WindowsAuthIPs";
 
+        private string m_LoginMode;
         public string LoginMode
         {
             get
             {
-                string loginMode = Utilities.AuthModeTrusted;
+                if (!String.IsNullOrWhiteSpace(m_LoginMode))
+                {
+                    return m_LoginMode;
+                }
+
+                m_LoginMode = Utilities.AuthModeTrusted;
                 if (SPFarm.Local.Properties.ContainsKey(CustomLoginProperty))
                 {
-                    loginMode = SPFarm.Local.Properties[CustomLoginProperty].ToString();
+                    m_LoginMode = SPFarm.Local.Properties[CustomLoginProperty].ToString();
                 }
                 if (SPFarm.Local.Properties.ContainsKey(WindowsAuthIPsConfig))
                 {
@@ -49,10 +55,10 @@ namespace Yvand.SPBypassLoginPage
                     string clientIp = this.Request.ServerVariables["REMOTE_ADDR"];
                     if (windowsAuthIPs.IndexOf(clientIp) >= 0)
                     {
-                        loginMode = Utilities.AuthModeWindows;
+                        m_LoginMode = Utilities.AuthModeWindows;
                     }
                 }
-                return loginMode;
+                return m_LoginMode;
             }
         }
 
@@ -91,12 +97,11 @@ namespace Yvand.SPBypassLoginPage
                 SPHttpUtility.NoEncode((string)HttpContext.GetGlobalResourceObject("wss", "login_pagetitle", System.Threading.Thread.CurrentThread.CurrentUICulture));
             ClaimsLogonPageMessage.Text = SPHttpUtility.NoEncode(SPResource.GetString(Strings.SelectAuthenticationMethod));
 
-            var loginMode = LoginMode;
             if (ClientQueryString.Contains(Utilities.DisplayAllAuthNModes) ||
-                String.Equals(loginMode, Utilities.DisplayAllAuthNModes, StringComparison.InvariantCultureIgnoreCase))
+                String.Equals(LoginMode, Utilities.DisplayAllAuthNModes, StringComparison.InvariantCultureIgnoreCase))
                 LetUserChoose();
             else
-                HandleRedirect(loginMode);
+                HandleRedirect(LoginMode);
         }
 
         /// <summary>
