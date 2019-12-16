@@ -45,11 +45,11 @@ namespace Yvand.SPBypassLoginPage
                 }
 
                 m_LoginMode = Utilities.AuthModeTrusted;
-                if (SPFarm.Local.Properties.ContainsKey(CustomLoginProperty))
+                if (SPFarm.Local.Properties.ContainsKey(CustomLoginProperty) && !String.IsNullOrWhiteSpace(SPFarm.Local.Properties[CustomLoginProperty] as string))
                 {
                     m_LoginMode = SPFarm.Local.Properties[CustomLoginProperty].ToString();
                 }
-                if (SPFarm.Local.Properties.ContainsKey(WindowsAuthIPsConfig))
+                if (SPFarm.Local.Properties.ContainsKey(WindowsAuthIPsConfig) && !String.IsNullOrWhiteSpace(SPFarm.Local.Properties[WindowsAuthIPsConfig] as string))
                 {
                     var windowsAuthIPs = SPFarm.Local.Properties[WindowsAuthIPsConfig].ToString();
                     string clientIp = this.Request.ServerVariables["REMOTE_ADDR"];
