@@ -1,5 +1,9 @@
 # Change log for SPBypassLoginPage
 
+## Unreleased
+
+* Add property CustomBypassLogin_WindowsAuthIPs to redirect specified client IPs to Windows authentication endpoint
+
 ## SPBypassLoginPage 2019.02.19.10
 
 * Use Azure DevOps to build and release SPBypassLoginPage
