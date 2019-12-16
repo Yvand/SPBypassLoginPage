@@ -32,21 +32,33 @@ namespace Yvand.SPBypassLoginPage
     public partial class BypassLogin : IdentityModelSignInPageBase
     {
         const string CustomLoginProperty = "CustomBypassLogin";
+        const string WindowsAuthIPsConfig = "CustomBypassLogin_WindowsAuthIPs";
+
+        private string m_LoginMode;
         public string LoginMode
         {
             get
             {
-                if (!SPFarm.Local.Properties.ContainsKey(CustomLoginProperty))
+                if (!String.IsNullOrWhiteSpace(m_LoginMode))
                 {
-                    //    SPSecurity.RunWithElevatedPrivileges(delegate ()
-                    //    {
-                    //        base.Web.AllowUnsafeUpdates = true;
-                    SPFarm.Local.Properties.Add(CustomLoginProperty, "Trusted");
-                    //        //SPFarm.Local.Update();
-                    //        base.Web.AllowUnsafeUpdates = false;
-                    //    });
+                    return m_LoginMode;
                 }
-                return SPFarm.Local.Properties[CustomLoginProperty].ToString();
+
+                m_LoginMode = Utilities.AuthModeTrusted;
+                if (SPFarm.Local.Properties.ContainsKey(CustomLoginProperty) && !String.IsNullOrWhiteSpace(SPFarm.Local.Properties[CustomLoginProperty] as string))
+                {
+                    m_LoginMode = SPFarm.Local.Properties[CustomLoginProperty].ToString();
+                }
+                if (SPFarm.Local.Properties.ContainsKey(WindowsAuthIPsConfig) && !String.IsNullOrWhiteSpace(SPFarm.Local.Properties[WindowsAuthIPsConfig] as string))
+                {
+                    var windowsAuthIPs = SPFarm.Local.Properties[WindowsAuthIPsConfig].ToString();
+                    string clientIp = this.Request.ServerVariables["REMOTE_ADDR"];
+                    if (windowsAuthIPs.IndexOf(clientIp) >= 0)
+                    {
+                        m_LoginMode = Utilities.AuthModeWindows;
+                    }
+                }
+                return m_LoginMode;
             }
         }
 
