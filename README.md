@@ -54,6 +54,14 @@ $farm.Properties.Remove("CustomBypassLogin")
 $farm.Update()
 ```
 
+You can also force specific clients to use Windows authentication mode based on their IP address, regardless of the value set in property CustomBypassLogin:
+
+```powershell
+$farm = Get-SPFarm
+$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.10.10.10; 10.10.10.11; 10.10.10.12")
+$farm.Update()
+```
+
 ## Remove SPBypassLoginPage from the farm
 
 * Revert to the default provider selection page:
