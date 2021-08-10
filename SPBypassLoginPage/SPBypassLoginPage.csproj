@@ -72,6 +72,10 @@
     <SPVersion Condition="'$(Configuration)'=='SP2019'">SP2019</SPVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IPAddressRange, Version=4.2.0.0, Culture=neutral, PublicKeyToken=578e3c3d17e7c751, processorArchitecture=MSIL">
+      <HintPath>..\packages\IPAddressRange.4.2.0\lib\net45\IPAddressRange.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.SharePoint.IdentityModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SPVersion)\Microsoft.SharePoint.IdentityModel.dll</HintPath>
@@ -100,6 +104,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="SPBypassLoginPage.snk" />
     <None Include="LOGIN\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{806235a0-2949-4da4-b5a8-f5648163a152}</SharePointProjectItemId>

@@ -2,7 +2,9 @@
 using Microsoft.SharePoint.Administration;
 using Microsoft.SharePoint.IdentityModel.Pages;
 using Microsoft.SharePoint.Utilities;
+using NetTools;
 using System;
+using System.Net;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -51,11 +53,25 @@ namespace Yvand.SPBypassLoginPage
                 }
                 if (SPFarm.Local.Properties.ContainsKey(WindowsAuthIPsConfig) && !String.IsNullOrWhiteSpace(SPFarm.Local.Properties[WindowsAuthIPsConfig] as string))
                 {
-                    var windowsAuthIPs = SPFarm.Local.Properties[WindowsAuthIPsConfig].ToString();
+                    string[] windowsAuthIPs = SPFarm.Local.Properties[WindowsAuthIPsConfig].ToString().Split(';');
                     string clientIp = this.Request.ServerVariables["REMOTE_ADDR"];
-                    if (windowsAuthIPs.IndexOf(clientIp) >= 0)
+
+                    foreach(var windowsAuthIp in windowsAuthIPs)
                     {
-                        m_LoginMode = Utilities.AuthModeWindows;
+                        IPAddressRange ipRange;
+                        if (IPAddressRange.TryParse(windowsAuthIp, out ipRange)){                  
+                            if (ipRange.Contains(IPAddress.Parse(clientIp))) {
+                                m_LoginMode = Utilities.AuthModeWindows;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (windowsAuthIp.Equals(clientIp))
+                            {
+                                m_LoginMode = Utilities.AuthModeWindows;
+                            }
+                        }
                     }
                 }
                 return m_LoginMode;

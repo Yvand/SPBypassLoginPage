@@ -62,6 +62,22 @@ $farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.10.10.10; 10.10.10.
 $farm.Update()
 ```
 
+Or use a range of IP addresses such as "10.10.10.0/24" and "10.10.10.0/255.255.255.0" and "10.10.0.0-10.10.0.255":
+
+```powershell
+$farm = Get-SPFarm
+$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.10.10.0/24")
+$farm.Update()
+```
+
+Or any combination of range and specific addresses:
+
+```powershell
+$farm = Get-SPFarm
+$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.10.11.11; 10.10.11.11; 10.10.10.0/24")
+$farm.Update()
+```
+
 ## Remove SPBypassLoginPage from the farm
 
 * Revert to the default provider selection page:
