@@ -58,15 +58,15 @@ You can also force specific clients to use Windows authentication mode based on 
 
 ```powershell
 $farm = Get-SPFarm
-$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.10.10.10; 10.10.10.11; 10.10.10.12")
+$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.0.3.4; 10.0.2.4; 10.0.1.4")
 $farm.Update()
 ```
 
-Or use a range of IP addresses such as "10.10.10.0/24" and "10.10.10.0/255.255.255.0" and "10.10.0.0-10.10.0.255":
+Or use a range of IP addresses such as "10.0.3.0/24" and "10.0.3.0/255.255.255.0" and "10.0.3.0-10.0.3.255":
 
 ```powershell
 $farm = Get-SPFarm
-$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.10.10.0/24")
+$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.0.3.0/24")
 $farm.Update()
 ```
 
@@ -74,7 +74,7 @@ Or any combination of range and specific addresses:
 
 ```powershell
 $farm = Get-SPFarm
-$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.10.11.11; 10.10.11.11; 10.10.10.0/24")
+$farm.Properties.Add("CustomBypassLogin_WindowsAuthIPs", "10.0.3.0/24; 10.0.2.4; 10.0.1.4")
 $farm.Update()
 ```
 
@@ -91,6 +91,7 @@ Set-SPWebApplication "http://spsites/" -Zone "Default" -SignInRedirectUrl ""
 ```powershell
 $farm = Get-SPFarm
 $farm.Properties.Remove("CustomBypassLogin")
+$farm.Properties.Remove("CustomBypassLogin_WindowsAuthIPs")
 $farm.Update()
 Uninstall-SPSolution -Identity "SPBypassLoginPage SP2019.wsp"
 Remove-SPSolution -Identity "SPBypassLoginPage SP2019.wsp"
@@ -98,4 +99,8 @@ Remove-SPSolution -Identity "SPBypassLoginPage SP2019.wsp"
 
 ## Update SPBypassLoginPage
 
-Due to breaking changes in the latest version, cmdlet Update-SPSolution won't work. Instead, you need to remove and reinstall the solution.
+Run the following cmdlet in the SharePoint management shell:
+
+```powershell
+Update-SPSolution -Identity "SPBypassLoginPage SP2019.wsp" -LiteralPath "C:\Data\Dev\SPBypassLoginPage SP2019.wsp"
+```
