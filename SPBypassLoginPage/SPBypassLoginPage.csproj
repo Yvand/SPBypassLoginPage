@@ -35,13 +35,14 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>SPBypassLoginPage.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPSE|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SPSE|AnyCPU'">
     <OutputPath>bin\SPSE\</OutputPath>
     <DefineConstants>TRACE;SPSE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -80,7 +81,7 @@
     <SPVersion>SP2013</SPVersion>
     <SPVersion Condition="'$(Configuration)'=='SP2016'">SP2016</SPVersion>
     <SPVersion Condition="'$(Configuration)'=='SP2019'">SP2019</SPVersion>
-	<SPVersion Condition="'$(Configuration)'=='SPSE'">SPSE</SPVersion>
+    <SPVersion Condition="'$(Configuration)'=='SPSE'">SPSE</SPVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="IPAddressRange, Version=4.2.0.0, Culture=neutral, PublicKeyToken=578e3c3d17e7c751, processorArchitecture=MSIL">
@@ -132,7 +133,7 @@
     <Folder Include="SP2013\" />
     <Folder Include="SP2016\" />
     <Folder Include="SP2019\" />
-	<Folder Include="SPSE\" />
+    <Folder Include="SPSE\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LOGIN\Bypass\BypassLogin.aspx" />
