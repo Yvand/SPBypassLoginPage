@@ -36,6 +36,7 @@
     <AssemblyOriginatorKeyFile>SPBypassLoginPage.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SPSE|AnyCPU'">
+	<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <OutputPath>bin\SPSE\</OutputPath>
     <DefineConstants>TRACE;SPSE</DefineConstants>
     <Optimize>true</Optimize>
