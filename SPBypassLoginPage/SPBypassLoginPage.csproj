@@ -48,6 +48,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2019|AnyCPU' ">
+	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>bin\SP2019\</OutputPath>
     <DefineConstants>TRACE;SP2019</DefineConstants>
     <Optimize>true</Optimize>
@@ -58,6 +59,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2016|AnyCPU' ">
+	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>bin\SP2016\</OutputPath>
     <DefineConstants>TRACE;SP2016</DefineConstants>
     <Optimize>true</Optimize>
@@ -68,6 +70,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2013|AnyCPU' ">
+	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>bin\SP2013\</OutputPath>
     <DefineConstants>TRACE;SP2013</DefineConstants>
     <Optimize>true</Optimize>
