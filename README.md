@@ -1,6 +1,6 @@
-# SPBypassLoginPage for SharePoint 2019 / 2016 / 2013
+# SPBypassLoginPage for SharePoint Subscription / 2019 / 2016 / 2013
 
-This farm solution adds a page that replaces standard provider selection page when multiple authentication modes are enabled in a zone of a web application.  
+This farm solution adds a page that replaces the standard provider selection page when multiple authentication modes are enabled in a zone of a web application.  
 SharePoint administrators can configure it to set what authentication mode should be used.
 
 ![Latest release date](https://img.shields.io/github/release-date/Yvand/SPBypassLoginPage.svg?style=flat)
