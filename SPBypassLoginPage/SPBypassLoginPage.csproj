@@ -35,7 +35,20 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>SPBypassLoginPage.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SPSE|AnyCPU'">
+	<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\SPSE\</OutputPath>
+    <DefineConstants>TRACE;SPSE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2019|AnyCPU' ">
+	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>bin\SP2019\</OutputPath>
     <DefineConstants>TRACE;SP2019</DefineConstants>
     <Optimize>true</Optimize>
@@ -46,6 +59,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2016|AnyCPU' ">
+	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>bin\SP2016\</OutputPath>
     <DefineConstants>TRACE;SP2016</DefineConstants>
     <Optimize>true</Optimize>
@@ -56,6 +70,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2013|AnyCPU' ">
+	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputPath>bin\SP2013\</OutputPath>
     <DefineConstants>TRACE;SP2013</DefineConstants>
     <Optimize>true</Optimize>
@@ -70,6 +85,7 @@
     <SPVersion>SP2013</SPVersion>
     <SPVersion Condition="'$(Configuration)'=='SP2016'">SP2016</SPVersion>
     <SPVersion Condition="'$(Configuration)'=='SP2019'">SP2019</SPVersion>
+    <SPVersion Condition="'$(Configuration)'=='SPSE'">SPSE</SPVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="IPAddressRange, Version=4.2.0.0, Culture=neutral, PublicKeyToken=578e3c3d17e7c751, processorArchitecture=MSIL">
@@ -121,6 +137,7 @@
     <Folder Include="SP2013\" />
     <Folder Include="SP2016\" />
     <Folder Include="SP2019\" />
+    <Folder Include="SPSE\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LOGIN\Bypass\BypassLogin.aspx" />
