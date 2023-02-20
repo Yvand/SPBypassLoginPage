@@ -98,6 +98,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Solution Package
-        path: "${{ env.Wap_Project_Directory }}\\${{ env.Wap_Project_Directory }}\\${{ env.Wap_Project_Directory }}\\bin\\${{ env.Configuration }}\\${{ env.Wap_Project_Directory }} ${{ env.Configuration }}.wsp"
+        path: "${{ env.Wap_Project_Directory }}\\${{ env.Wap_Project_Directory }}\\bin\\${{ env.Configuration }}\\${{ env.Wap_Project_Directory }} ${{ env.Configuration }}.wsp"
       env:
         Configuration: ${{ matrix.configuration }}
