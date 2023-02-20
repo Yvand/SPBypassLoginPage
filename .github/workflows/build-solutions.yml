@@ -80,6 +80,9 @@ jobs:
         $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
         $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath SPBypassLoginPage.snk
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+        Write-Host $env:Wap_Project_Directory
+        Write-Verbose $env:Wap_Project_Directory
+        Get-ChildItem -Path $env:Wap_Project_Directory
 
     # Build the application
     - name: Build the application and create the app package
