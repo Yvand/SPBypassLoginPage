@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SPBypassLoginPage</RootNamespace>
     <AssemblyName>Yvand.SPBypassLoginPage</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetOfficeVersion>15.0</TargetOfficeVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -48,7 +48,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2019|AnyCPU' ">
-	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+	<TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <OutputPath>bin\SP2019\</OutputPath>
     <DefineConstants>TRACE;SP2019</DefineConstants>
     <Optimize>true</Optimize>
@@ -59,7 +59,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2016|AnyCPU' ">
-	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+	<TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <OutputPath>bin\SP2016\</OutputPath>
     <DefineConstants>TRACE;SP2016</DefineConstants>
     <Optimize>true</Optimize>
@@ -70,7 +70,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SP2013|AnyCPU' ">
-	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+	<TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <OutputPath>bin\SP2013\</OutputPath>
     <DefineConstants>TRACE;SP2013</DefineConstants>
     <Optimize>true</Optimize>
