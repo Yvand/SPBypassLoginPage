@@ -17,9 +17,9 @@ jobs:
     runs-on: windows-latest
     
     env:
-      Solution_Name: SPBypassLoginPage.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Project_Directory: SPBypassLoginPage    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Project_File_Path: SPBypassLoginPage\SPBypassLoginPage.csproj                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Solution_Name: SPBypassLoginPage.sln
+      Project_Directory: SPBypassLoginPage
+      Project_File_Path: SPBypassLoginPage\SPBypassLoginPage.csproj
 
     steps:
     - name: Checkout
@@ -38,7 +38,7 @@ jobs:
     - name: Decode the signing key
       run: |
         $data = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_SIGNINGKEY }}")
-        $certificatePath = Join-Path -Path $env:Project_Directory -ChildPath SPBypassLoginPage.snk
+        $certificatePath = Join-Path -Path $env:Project_Directory -ChildPath "${{ env.Project_Directory }}.snk"
         [IO.File]::WriteAllBytes("$certificatePath", $data)
 
     # Build the application
@@ -48,7 +48,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     - name: Remove the signing key
-      run: Remove-Item -path $env:Project_Directory\SPBypassLoginPage.snk
+      run: Remove-Item -path "${{ $env:Project_Directory }}\${{ env.Project_Directory }}.snk"
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
