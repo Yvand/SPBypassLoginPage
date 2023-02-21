@@ -18,8 +18,8 @@ jobs:
     
     env:
       Solution_Name: SPBypassLoginPage.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Wap_Project_Directory: SPBypassLoginPage    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: SPBypassLoginPage\SPBypassLoginPage.csproj                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Project_Directory: SPBypassLoginPage    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
+      Project_File_Path: SPBypassLoginPage\SPBypassLoginPage.csproj                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
 
     steps:
     - name: Checkout
@@ -35,29 +35,25 @@ jobs:
       run: nuget restore $env:Solution_Name
 
     # Decode the base 64 encoded signing key
-    - name: Decode the signing certificate
+    - name: Decode the signing key
       run: |
-        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_SIGNINGKEY }}")
-        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath SPBypassLoginPage.snk
-        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
-        Write-Host $env:Wap_Project_Directory
-        Write-Verbose $env:Wap_Project_Directory
-        Get-ChildItem -Path $env:Wap_Project_Directory
+        $data = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_SIGNINGKEY }}")
+        $certificatePath = Join-Path -Path $env:Project_Directory -ChildPath SPBypassLoginPage.snk
+        [IO.File]::WriteAllBytes("$certificatePath", $data)
 
     # Build the application
-    - name: Build the application and create the app package
+    - name: Build the application and create the solution package
       run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:IsPackaging=true /p:platform="Any CPU"
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - name: Remove the signing certificate
-      run: Remove-Item -path $env:Wap_Project_Directory\SPBypassLoginPage.snk
+    - name: Remove the signing key
+      run: Remove-Item -path $env:Project_Directory\SPBypassLoginPage.snk
 
-    # Upload the solution: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Solution Package
-        path: "${{ env.Wap_Project_Directory }}\\bin\\${{ env.Configuration }}\\${{ env.Wap_Project_Directory }} ${{ env.Configuration }}.wsp"
+        name: "${{ env.Project_Directory }}"
+        path: "${{ env.Project_Directory }}\\bin\\${{ env.Configuration }}\\${{ env.Project_Directory }} ${{ env.Configuration }}.wsp"
       env:
         Configuration: ${{ matrix.configuration }}
