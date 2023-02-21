@@ -49,7 +49,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     - name: Remove the signing key
-      run: Remove-Item -path "${{ $env:Project_Directory }}\\${{ env.Project_Name }}.snk"
+      run: Remove-Item -path "${{ env.Project_Directory }}\\${{ env.Project_Name }}.snk"
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
