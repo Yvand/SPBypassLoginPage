@@ -36,7 +36,7 @@ jobs:
       id: set-assembly-version
       uses: secondbounce/assemblyinfo-update@v2
       with:
-        version: "${{ env.VERSION_MAJOR_MINOR }}.${{ steps.date.outputs.date }}"
+        version: "${{ vars.VERSION_MAJOR_MINOR }}.${{ steps.date.outputs.date }}"
         directory: "${{ env.Project_Directory }}\\Properties"
         filename: 'AssemblyInfo.cs'
         recursive: false
