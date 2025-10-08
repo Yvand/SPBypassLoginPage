@@ -123,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
-    <Folder Include="SP2013\" />
     <Folder Include="SP2016\" />
     <Folder Include="SP2019\" />
     <Folder Include="SPSE\" />
