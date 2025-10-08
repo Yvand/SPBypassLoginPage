@@ -36,6 +36,16 @@ namespace Yvand.SPBypassLoginPage
         const string CustomLoginProperty = "CustomBypassLogin";
         const string WindowsAuthIPsConfig = "CustomBypassLogin_WindowsAuthIPs";
 
+        public string ClientIpAddress
+        {
+            get
+            {
+                return !String.IsNullOrWhiteSpace(Request.ServerVariables["HTTP_X_FORWARDED_FOR"]) ?
+                    Request.ServerVariables["HTTP_X_FORWARDED_FOR"] :
+                    Request.ServerVariables["REMOTE_ADDR"];
+            }
+        }
+
         private string m_LoginMode;
         public string LoginMode
         {
@@ -54,9 +64,9 @@ namespace Yvand.SPBypassLoginPage
                 if (SPFarm.Local.Properties.ContainsKey(WindowsAuthIPsConfig) && !String.IsNullOrWhiteSpace(SPFarm.Local.Properties[WindowsAuthIPsConfig] as string))
                 {
                     string[] windowsAuthIPs = SPFarm.Local.Properties[WindowsAuthIPsConfig].ToString().Split(';');
-                    string clientIp = this.Request.ServerVariables["REMOTE_ADDR"];
+                    string clientIp = ClientIpAddress;
 
-                    foreach(var windowsAuthIp in windowsAuthIPs)
+                    foreach (var windowsAuthIp in windowsAuthIPs)
                     {
                         IPAddressRange ipRange;
                         if (IPAddressRange.TryParse(windowsAuthIp, out ipRange)){                  
