@@ -4,6 +4,7 @@ using Microsoft.SharePoint.IdentityModel.Pages;
 using Microsoft.SharePoint.Utilities;
 using NetTools;
 using System;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -39,7 +40,8 @@ namespace Yvand.SPBypassLoginPage
             get
             {
                 return !String.IsNullOrWhiteSpace(Request.ServerVariables["HTTP_X_FORWARDED_FOR"]) ?
-                    Request.ServerVariables["HTTP_X_FORWARDED_FOR"] :
+                    // HTTP_X_FORWARDED_FOR contains the IP of client + proxy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-For
+                    Request.ServerVariables["HTTP_X_FORWARDED_FOR"].Split(new char[] { ',' }).FirstOrDefault() :
                     Request.ServerVariables["REMOTE_ADDR"];
             }
         }
