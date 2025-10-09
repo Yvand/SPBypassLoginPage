@@ -36,7 +36,7 @@ jobs:
       id: set-assembly-version
       uses: Yvand/assemblyinfo-update@main
       with:
-        version: "${{ vars.RELEASE_VERSION }}"
+        version: "${{ input.RELEASE_VERSION }}"
         directory: "${{ env.Project_Name }}/Properties"
         filename: 'AssemblyInfo.cs'
         recursive: false
