@@ -42,8 +42,10 @@ jobs:
         recursive: false
         copyright: "Copyright © Yvan Duhamel ${{ steps.date.outputs.year }}"
 
-    - name: Print the version generated
-      run: echo "Assembly version: ${{ steps.set-assembly-version.outputs.version }}"
+    - name: Print the assembly version generated
+      env: 
+        assembly_version: ${{ steps.set-assembly-version.outputs.version }}
+      run: echo "Assembly version: `"$($env:assembly_version)`""
 
     # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
