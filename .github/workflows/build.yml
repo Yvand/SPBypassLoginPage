@@ -1,4 +1,4 @@
-name: Build solutions
+name: Build project
 
 on:
   push:
@@ -28,17 +28,19 @@ jobs:
 
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y')"
+      run: |
+        echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+        echo "year=$(date +'%Y')" >> $GITHUB_OUTPUT
         
     - name: Set assembly version
       id: set-assembly-version
       uses: Yvand/assemblyinfo-update@main
       with:
         version: "${{ vars.RELEASE_VERSION }}"
-        directory: "${{ env.project-name }}/Properties"
+        directory: "${{ env.Project_Name }}/Properties"
         filename: 'AssemblyInfo.cs'
         recursive: false
-        copyright: "Copyright © Yvan Duhamel ${{ steps.date.outputs.date }}"
+        copyright: "Copyright © Yvan Duhamel ${{ steps.date.outputs.year }}"
 
     - name: Print the version generated
       run: echo "{{steps.set-assembly-version.outputs.version}}"
