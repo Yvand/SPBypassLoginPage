@@ -18,6 +18,7 @@ jobs:
       Project_Name: SPBypassLoginPage
       Project_Directory: SPBypassLoginPage
       Project_File_Path: SPBypassLoginPage\SPBypassLoginPage.csproj
+      Release_Version: ${{ vars.RELEASE_VERSION }}
 
     steps:
     - name: Checkout
@@ -35,7 +36,7 @@ jobs:
       id: set-assembly-version
       uses: Yvand/assemblyinfo-update@main
       with:
-        version: "${{ vars.RELEASE_VERSION }}"
+        version: "${{ env.Release_Version }}"
         directory: "${{ env.Project_Name }}/Properties"
         filename: 'AssemblyInfo.cs'
         recursive: false
