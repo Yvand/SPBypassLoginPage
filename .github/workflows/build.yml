@@ -43,7 +43,7 @@ jobs:
         copyright: "Copyright © Yvan Duhamel ${{ steps.date.outputs.year }}"
 
     - name: Print the version generated
-      run: echo "{{steps.set-assembly-version.outputs.version}}"
+      run: echo "Assembly version: ${{ steps.set-assembly-version.outputs.version }}"
 
     # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
@@ -59,7 +59,6 @@ jobs:
         $certificatePath = Join-Path -Path $env:Project_Directory -ChildPath "${{ env.Project_Name }}.snk"
         [IO.File]::WriteAllBytes($certificatePath, $data)
 
-    # Build the application
     - name: Build the solution and create the wsp package
       run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:IsPackaging=true /p:platform="Any CPU"
       env:
