@@ -43,6 +43,7 @@ jobs:
         copyright: "Copyright © Yvan Duhamel ${{ steps.date.outputs.year }}"
 
     - name: Print the assembly version generated
+      shell: pwsh
       env: 
         assembly_version: ${{ steps.set-assembly-version.outputs.version }}
       run: echo "Assembly version: $($env:assembly_version)"
