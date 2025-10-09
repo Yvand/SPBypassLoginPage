@@ -1,11 +1,21 @@
 name: Build project
 
+permissions:
+  contents: write
 on:
+  # push:
+    # branches: [ "master" ]
+  # pull_request:
+    # branches: [ "master" ]
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+      - "v*.*.*"
   workflow_dispatch:
+    inputs:
+      publish_release:
+        description: 'Create a release'
+        required: true
+        default: false
 
 jobs:
   build:
@@ -78,3 +88,75 @@ jobs:
         path: "${{ env.Project_Directory }}\\bin\\${{ env.Configuration }}\\${{ env.Project_Name }} ${{ env.Configuration }}.wsp"
       env:
         Configuration: ${{ matrix.configuration }}
+
+  deploy:
+    needs: build
+    if: inputs.publish_release == true
+    runs-on: ubuntu-latest
+    env:
+      project-name: ${{ inputs.project-name }}
+      assembly-version: ${{ needs.build.outputs.assembly-version }}
+      tag-name: ${{ needs.build.outputs.assembly-version }}
+      # Secrets cannot be directly referenced in if, so they need to be added to the host environment
+      # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
+      secret_nuget_apikey: ${{ secrets.NUGET_APIKEY }}
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./
+          
+      - name: Create zip files to publish
+        run: |
+          echo "assembly-version: ${{ env.assembly-version }}"
+          mkdir ${{ env.project-name }}-symbols
+          mkdir ${{ env.project-name }}-symbols/debug
+          mkdir ${{ env.project-name }}-symbols/release
+          echo "Generate symbols zip file"
+          cp ./${{ env.project-name }}-Debug-symbols/* ${{ env.project-name }}-symbols/debug
+          cp ./${{ env.project-name }}-Release-symbols/* ${{ env.project-name }}-symbols/release
+          cd ${{ env.project-name }}-symbols
+          zip -r ../${{ env.project-name }}-${{ env.assembly-version }}-symbols.zip ./*
+          cd ..
+          echo "Generate dependencies zip file"
+          mkdir ${{ env.project-name }}-dependencies
+          cp ./${{ env.project-name }}-Release-dependencies/* ${{ env.project-name }}-dependencies
+          cd ${{ env.project-name }}-dependencies
+          zip -r ../${{ env.project-name }}-${{ env.assembly-version }}-dependencies.zip ./*
+          cd ..
+          echo "Generate unit-tests zip file"
+          mkdir ${{ env.project-name }}-unit-tests
+          mkdir ${{ env.project-name }}-unit-tests/debug
+          mkdir ${{ env.project-name }}-unit-tests/release
+          cp ./${{ env.project-name }}-Debug-unit-tests/* ${{ env.project-name }}-unit-tests/debug
+          cp ./${{ env.project-name }}-Release-unit-tests/* ${{ env.project-name }}-unit-tests/release
+          cd ${{ env.project-name }}-unit-tests
+          zip -r ../${{ env.project-name }}-unit-tests.zip ./*
+          cd ..
+          echo "Generate NuGet zip file if NuGet directory exists"
+          if [ -d "NuGet" ]; then
+            cd NuGet
+            zip -r ../NuGet.zip ./*
+            cd ..
+          fi
+          if [ -d "assembly-bindings.config" ]; then
+            echo "Move file assembly-bindings.config to the parent folder"
+            mv assembly-bindings.config dir-assembly-bindings-config
+            mv dir-assembly-bindings-config/assembly-bindings.config .
+          fi
+          ls -al
+          realpath assembly-bindings.config
+
+      - name: Publish production release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: '${{ env.project-name }} ${{ env.tag-name }}'
+          prerelease: true
+          draft: true
+          # tag_name: ${{ env.tag-name }}
+          body: |
+            ${{ env.Project_Name }} ${{ env.tag-name }}
+          files: |
+            ./${{ env.Project_Name }} SPSE.zip
+            ./${{ env.Project_Name }} SP2019.zip
+            ./${{ env.Project_Name }} SP2016.zip
