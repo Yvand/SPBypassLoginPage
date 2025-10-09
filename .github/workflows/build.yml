@@ -46,7 +46,7 @@ jobs:
       shell: pwsh
       env: 
         assembly_version: ${{ steps.set-assembly-version.outputs.version }}
-      run: echo "Assembly version: $($env:assembly_version)"
+      run: Write-Host "Assembly version: $($env:assembly_version)"
 
     # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
