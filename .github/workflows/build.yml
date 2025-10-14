@@ -22,7 +22,7 @@ jobs:
   build:
     runs-on: windows-latest
     outputs:
-      assembly-version: ${{ steps.set-assembly-version.outputs.version }}
+      assembly-file-version: ${{ steps.set-assembly-version.outputs.version }}
     strategy:
       matrix:
         configuration: [SPSE, SP2019, SP2016]    
@@ -98,28 +98,24 @@ jobs:
     runs-on: ubuntu-latest
     env:
       project-name: ${{ github.event.repository.name }}
-      assembly-version: ${{ needs.build.outputs.assembly-version }}
-      tag-name: ${{ needs.build.outputs.assembly-version }}
+      release-version: ${{ vars.RELEASE_VERSION }}
+      assembly-file-version: ${{ needs.build.outputs.assembly-file-version }}
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v5
         with:
           merge-multiple: true
 
-      - run: |
-          echo ${{ env.assembly-version }}
-          echo ${{ env.tag-name }}
-          ls -alhR
+      #- run: ls -alhR
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          name: '${{ env.project-name }} ${{ env.tag-name }}'
+          name: '${{ env.project-name }} ${{ env.release-version }}'
           prerelease: true
           draft: true
-          # tag_name: ${{ env.tag-name }}
           body: |
-            ${{ env.project-name }} ${{ env.tag-name }}
+            ${{ env.project-name }} ${{ env.release-version }}
           files: |
             ${{ env.project-name }} SPSE.wsp
             ${{ env.project-name }} SP2019.wsp
