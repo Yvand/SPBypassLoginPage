@@ -24,10 +24,10 @@ jobs:
       matrix:
         configuration: [SPSE, SP2019, SP2016]    
     env:
-      Solution_Name: SPBypassLoginPage.sln
-      Project_Name: SPBypassLoginPage
-      Project_Directory: SPBypassLoginPage
-      Project_File_Path: SPBypassLoginPage\SPBypassLoginPage.csproj
+      Solution_Name: ${{ github.event.repository.name }}.sln
+      Project_Name: ${{ github.event.repository.name }}
+      Project_Directory: ${{ github.event.repository.name }}
+      Project_File_Path: ${{ github.event.repository.name }}\${{ github.event.repository.name }}.csproj
       Release_Version: ${{ vars.RELEASE_VERSION }}
 
     steps:
@@ -94,7 +94,7 @@ jobs:
     if: ${{ inputs.publish_release }} == true || startsWith(github.event.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     env:
-      project-name: ${{ inputs.project-name }}
+      project-name: ${{ github.event.repository.name }}
       assembly-version: ${{ needs.build.outputs.assembly-version }}
       tag-name: ${{ needs.build.outputs.assembly-version }}
     steps:
@@ -111,8 +111,8 @@ jobs:
           draft: true
           # tag_name: ${{ env.tag-name }}
           body: |
-            ${{ env.Project_Name }} ${{ env.tag-name }}
+            ${{ env.project-name }} ${{ env.tag-name }}
           files: |
-            ./${{ env.Project_Name }} SPSE.zip
-            ./${{ env.Project_Name }} SP2019.zip
-            ./${{ env.Project_Name }} SP2016.zip
+            ./${{ env.project-name }} SPSE.zip
+            ./${{ env.project-name }} SP2019.zip
+            ./${{ env.project-name }} SP2016.zip
