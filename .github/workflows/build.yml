@@ -100,9 +100,9 @@ jobs:
       tag-name: ${{ needs.build.outputs.assembly-version }}
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
-          path: ./
+          path: $GITHUB_WORKSPACE
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
@@ -114,6 +114,6 @@ jobs:
           body: |
             ${{ env.project-name }} ${{ env.tag-name }}
           files: |
-            ./${{ env.project-name }} SPSE.zip
-            ./${{ env.project-name }} SP2019.zip
+            {{ $GITHUB_WORKSPACE }}/${{ env.project-name }} SPSE.wsp
+            $GITHUB_WORKSPACE/${{ env.project-name }} SP2019.wsp
             ./${{ env.project-name }} SP2016.zip
