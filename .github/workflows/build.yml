@@ -91,7 +91,7 @@ jobs:
 
   deploy:
     needs: build
-    if: inputs.publish_release == true || startsWith(github.event.ref, 'refs/tags/v')
+    if: ${{ inputs.publish_release }} == true || startsWith(github.event.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     env:
       project-name: ${{ inputs.project-name }}
