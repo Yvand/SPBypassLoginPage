@@ -96,11 +96,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       project-name: ${{ github.event.repository.name }}
-      assembly-version: ${{ needs.build.outputs.assembly-version }}
-      tag-name: ${{ needs.build.outputs.assembly-version }}
+      assembly-version: ${{ needs.build.set-assembly-version.outputs.version }}
+      tag-name: ${{ needs.build.outputs.set-assembly-version.version }}
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v5
+
+      - run: |
+          echo ${{ env.assembly-version }}
+          echo ${{ env.tag-name }}
+          ls -alh
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
