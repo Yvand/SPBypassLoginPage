@@ -213,15 +213,15 @@ namespace Yvand.SPBypassLoginPage
         {
             type = null;
             providerName = String.Empty;
-            if (value == Utilities.AuthModeWindows)
+            if (String.Equals(value, Utilities.AuthModeWindows, StringComparison.OrdinalIgnoreCase))
             {
                 type = typeof(SPWindowsAuthenticationProvider);
             }
-            else if (value == Utilities.AuthModeForms)
+            else if (String.Equals(value, Utilities.AuthModeForms, StringComparison.OrdinalIgnoreCase))
             {
                 type = typeof(SPFormsAuthenticationProvider);
             }
-            else if (value.StartsWith(Utilities.AuthModeTrusted))
+            else if (value.StartsWith(Utilities.AuthModeTrusted, StringComparison.OrdinalIgnoreCase))
             {
                 type = typeof(SPTrustedAuthenticationProvider);
                 providerName = Utilities.GetSubString(value, ':', 1);
