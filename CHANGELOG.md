@@ -1,6 +1,6 @@
 # Change log for SPBypassLoginPage
 
-## Unreleased
+## SPBypassLoginPage 3.0 - 2025-10-20
 
 * Breaking change: Remove SharePoint 2013
 * Breaking change: Packages for SharePoint 2019 and SharePoint 2016 are built using .NET Framework 4.7.2 (over .NET Framework 4.6.2)
